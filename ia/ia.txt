@@ -1,1 +1,6 @@
 IA avec pythoin fast API 
+
+
+python -m venv venv
+
+venv\Scripts\activate

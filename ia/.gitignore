@@ -1,0 +1,18 @@
+# Environnement virtuel Python (si local au dossier ia)
+venv/
+
+# Dossier de données
+data/
+
+# Fichiers CSV et Parquet
+*.csv
+*.parquet
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Fichiers système et temporaires
+.DS_Store
+.ipynb_checkpoints/

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+pyarrow
+sentence-transformers
+scikit-learn
+duckduckgo-search
+torch
+tokenizer

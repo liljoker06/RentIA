@@ -1,5 +1,8 @@
 # Environnement virtuel Python (si local au dossier ia)
 venv/
+*.parquet
+*.pkl
+ai/embeddings/
 
 # Dossier de données
 data/

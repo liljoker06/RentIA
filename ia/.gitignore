@@ -4,6 +4,8 @@ venv/
 *.pkl
 ai/embeddings/
 
+directml-env/
+
 # Dossier de données
 data/
 

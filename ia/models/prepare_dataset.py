@@ -2,31 +2,21 @@ import gzip
 import json
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
 from langdetect import detect
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 input_path = "data/oasst/2023-04-12_oasst_ready.trees.jsonl.gz"
 base_output_path = "datasets/oasst_dataset"
 
-# 🔁 Générer le nom de fichier avec version auto
-def get_available_filename(base_path):
-    version = 1
-    while True:
-        full_path = f"{base_path}_V{version}.txt"
-        if not os.path.exists(full_path):
-            return full_path
-        version += 1
-
-output_path = get_available_filename(base_output_path)
-pairs = set() 
+output_path = f"{base_output_path}.txt"
+pairs = set()
 
 def is_french(text):
     try:
         return detect(text) == "fr"
     except:
         return False
-
 
 def extract_pairs(node):
     if node["role"] != "prompter":
@@ -35,12 +25,16 @@ def extract_pairs(node):
         if reply["role"] == "assistant":
             q = node["text"].strip().replace("\n", " ")
             a = reply["text"].strip().replace("\n", " ")
-            # 🔒 Anti-doublons
-            pairs.add((q, a))
-            # Extraction récursive
+            
+            # 🌍 Vérifie que question ET réponse sont en français
+            if is_french(q) and is_french(a):
+                pairs.add((q, a))
+            
+            # 🔁 Extraction récursive
             for sub_reply in reply.get("replies", []):
                 extract_pairs(sub_reply)
 
+# 📦 Lecture du fichier gzip
 with gzip.open(input_path, "rt", encoding="utf-8") as f:
     for line in f:
         tree = json.loads(line)

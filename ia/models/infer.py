@@ -12,13 +12,11 @@ EMBED_SIZE = 128
 HIDDEN_SIZE = 256
 MAX_LEN = 20
 
-USE_CPU_ONLY = True
+USE_CPU_ONLY = False  # ← modifie ici si tu veux forcer le CPU
 DEVICE = "cpu" if USE_CPU_ONLY else torch_directml.device()
-# DEVICE = torch_directml.device()
+print(f"📟 Appareil utilisé : {DEVICE}")
 
-print(f"📟 GPU utilisé : {DEVICE}")
-
-# 📁 Chargement auto des modèles + vocabs
+# 📁 Chargement des modèles
 model_dir = "trained"
 models = []
 
@@ -31,10 +29,10 @@ for file in os.listdir(model_dir):
             models.append((version, model_path, vocab_path))
 
 if not models:
-    print("❌ Aucun modèle trouvé dans /model/")
+    print("❌ Aucun modèle trouvé dans /trained/")
     exit()
 
-# 🧠 Chargement des modèles
+# 🧠 Chargement des modèles + vocabulaires
 loaded_models = []
 for version, model_path, vocab_path in models:
     with open(vocab_path, "rb") as f:
@@ -42,9 +40,7 @@ for version, model_path, vocab_path in models:
     vocab_size = len(word2idx)
 
     model = ChatBotModel(vocab_size, EMBED_SIZE, HIDDEN_SIZE).to(DEVICE)
-    # model.load_state_dict(torch.load(model_path, map_location=DEVICE))
-    model.load_state_dict(torch.load(model_path, map_location="cpu"))
-    model.to(DEVICE)
+    model.load_state_dict(torch.load(model_path, map_location=DEVICE))
     model.eval()
 
     loaded_models.append({
@@ -54,7 +50,7 @@ for version, model_path, vocab_path in models:
         "idx2word": idx2word
     })
 
-# ✨ Récupérer une réponse par modèle
+# ✨ Générer une réponse
 def get_response(text, m):
     word2idx = m["word2idx"]
     idx2word = m["idx2word"]
@@ -66,18 +62,19 @@ def get_response(text, m):
 
     with torch.no_grad():
         output = model(input_tensor)[0]
+
     predicted_ids = torch.argmax(F.softmax(output, dim=-1), dim=-1).tolist()
     tokens = [idx2word.get(idx, "") for idx in predicted_ids]
     filtered = [t for t in tokens if t not in ["<PAD>", "<UNK>", ""]]
     return " ".join(filtered).strip()
 
-# 📊 Choisir la réponse la plus fréquente
+# 📊 Sélection de la réponse finale
 def select_best_response(responses):
     return Counter(responses).most_common(1)[0][0]
 
-# 💬 Interface
+# 💬 Interface CLI
 if __name__ == "__main__":
-    print("🤖 IA Multi-modèles prête ! (tape 'exit' pour quitter)\n")
+    print("🤖 IA multi-modèles prête ! (tape 'exit' pour quitter)\n")
     while True:
         user_input = input("👤 Toi : ")
         if user_input.lower() in ["exit", "quit"]:

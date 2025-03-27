@@ -1,12 +1,23 @@
+# 📦 Backend & API
 fastapi
 uvicorn
+
+# 📊 Traitement de données
 pandas
 pyarrow
-sentence-transformers
 scikit-learn
+
+# 🔍 Recherche & NLP
+sentence-transformers
 duckduckgo-search
-torch
-torch-directml
+langdetect
 tokenizer
 tqdm
-langdetect
+
+# 🧠 Deep Learning
+torch
+torch-directml
+
+
+#claire French Dialogue Dataset
+datasets

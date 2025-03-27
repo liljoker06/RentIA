@@ -1,59 +1,66 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useFormik} from "formik";
+import * as Yup from "yup";
+import {Link, useNavigate} from "react-router-dom";
+import {login} from "../api/auth.js";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .email("Adresse email invalide.")
+            .required("Veuillez remplir l'email."),
+        password: Yup.string()
+            .required("Veuillez remplir le mot de passe."),
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!email || !password) {
-            setError("Veuillez remplir tous les champs.");
-            return;
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema,
+        onSubmit: async (values) => {
+            const response = await login(values.email, values.password);
+            if (response) {
+                navigate("/");
+            }
         }
-
-        // Simuler une validation simple
-        if (email !== "test@example.com" || password !== "password") {
-            setError("Identifiants incorrects.");
-            return;
-        }
-
-        setError("");
-        alert("Connexion réussie !");
-    };
+    });
 
     return (
         <div className="flex min-h-screen items-center justify-center dark:bg-gray-900">
             <div className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-xl">
                 <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">RentalAi</h2>
 
-                {error && (
-                    <div className="mt-4 p-2 text-sm text-red-700 bg-red-200 rounded-md">
-                        {error}
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-2">
+                <form onSubmit={formik.handleSubmit} className="mt-6 flex flex-col gap-2">
                     <div>
                         <label className="block text-gray-700 dark:text-gray-300">Email</label>
                         <input
                             type="email"
+                            name="email"
                             className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none pr-10"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                         />
+                        {formik.touched.email && formik.errors.email && (
+                            <div className="text-red-600 text-sm">{formik.errors.email}</div>
+                        )}
                     </div>
 
                     <div>
                         <label className="block text-gray-700 dark:text-gray-300">Mot de passe</label>
                         <input
                             type="password"
+                            name="password"
                             className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none pr-10"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                         />
+                        {formik.touched.password && formik.errors.password && (
+                            <div className="text-red-600 text-sm">{formik.errors.password}</div>
+                        )}
                     </div>
 
                     <button

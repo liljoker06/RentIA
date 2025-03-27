@@ -19,3 +19,10 @@ __pycache__/
 # Fichiers système et temporaires
 .DS_Store
 .ipynb_checkpoints/
+
+# Fichiers de dataset locaux
+datasets/
+
+
+#fichier d'entrainement 
+trained/

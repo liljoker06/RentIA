@@ -6,4 +6,7 @@ sentence-transformers
 scikit-learn
 duckduckgo-search
 torch
+torch-directml
 tokenizer
+tqdm
+langdetect

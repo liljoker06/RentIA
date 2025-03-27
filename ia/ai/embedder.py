@@ -1,10 +1,8 @@
-# ia/ai/embedder.py
-
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
-from sentence_transformers import SentenceTransformer # type: ignore
+from sentence_transformers import SentenceTransformer 
 import pickle
 from utils.data_loader import dataframe
 

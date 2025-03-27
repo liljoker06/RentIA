@@ -1,4 +1,4 @@
-from duckduckgo_search import DDGS # type: ignore
+from duckduckgo_search import DDGS 
 
 def search_web(query: str, max_results: int = 3) -> list:
     results = []

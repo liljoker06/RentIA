@@ -35,7 +35,7 @@ function Home() {
                     {messages.map((message, index) => (
                         <div
                             key={index}
-                            className="p-2 bg-gray-100 dark:bg-gray-600 rounded-xl inline-block max-w-full"
+                            className="p-2 bg-gray-100 rounded-xl inline-block max-w-full"
                             style={{
                                 wordWrap: "break-word",
                                 maxWidth: "calc(100% - 30px)"
@@ -48,7 +48,7 @@ function Home() {
 
                 {!messages.length &&
                     <h2
-                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">
+                        className="block mb-2 text-2xl font-medium text-gray-900">
                         Bienvenue sur RentalAI, comment puis-je vous aider?
                     </h2>}
 
@@ -59,7 +59,7 @@ function Home() {
                         onChange={handleInputChange}
                         ref={textareaRef}
                         rows="1"
-                        className="block w-full max-h-48 p-4 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none pr-10"
+                        className="block w-full max-h-48 p-4 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 resize-none pr-10"
                     />
                     {/* Bouton d'envoi */}
                     <button

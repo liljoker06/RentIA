@@ -1,5 +1,7 @@
-import {useState, useRef} from 'react';
-import {ArrowRight, SendIcon} from "lucide-react";
+import { useState, useRef } from 'react';
+import { ArrowRight, SendIcon } from "lucide-react";
+import { askRenalIA } from "../api/renalIA";
+import ReactMarkdown from "react-markdown";
 
 function Home() {
     const [value, setValue] = useState('');
@@ -18,10 +20,18 @@ function Home() {
         }
     };
 
-    const handleSend = () => {
-        if (value.trim() !== "") { // Empêcher l'envoi d'un message vide
-            setMessages([...messages, value]); // Ajouter le message à l'historique
-            setValue(''); // Réinitialiser le champ de texte
+    const handleSend = async () => {
+        if (value.trim() === "") return;
+
+        const userMessage = value;
+        setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
+        setValue("");
+
+        try {
+            const response = await askRenalIA(userMessage, ""); // ou récupère le vrai nom s’il est stocké
+            setMessages((prev) => [...prev, { from: "bot", text: response }]);
+        } catch (err) {
+            setMessages((prev) => [...prev, { from: "bot", text: "❌ Erreur de réponse de l'IA." }]);
         }
     };
 
@@ -35,13 +45,14 @@ function Home() {
                     {messages.map((message, index) => (
                         <div
                             key={index}
-                            className="p-2 bg-gray-100 rounded-xl inline-block max-w-full"
+                            className={`p-2 rounded-xl inline-block max-w-full ${message.from === "user" ? "bg-blue-100 self-end" : "bg-gray-200 self-start"
+                                }`}
                             style={{
                                 wordWrap: "break-word",
                                 maxWidth: "calc(100% - 30px)"
                             }}
                         >
-                            <p>{message}</p>
+                            <ReactMarkdown>{message.text}</ReactMarkdown>
                         </div>
                     ))}
                 </div>
@@ -66,7 +77,7 @@ function Home() {
                         onClick={handleSend}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white border border-blue-500 rounded-xl p-1 hover:bg-blue-700 hover:border-blue-700 focus:outline-none"
                     >
-                        <ArrowRight color="white"/>
+                        <ArrowRight color="white" />
                     </button>
                 </div>
             </div>

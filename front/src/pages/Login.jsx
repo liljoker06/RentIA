@@ -22,7 +22,7 @@ export default function Login() {
         onSubmit: async (values) => {
             const response = await login(values.email, values.password);
             if (response) {
-                navigate("/");
+                navigate("/home");
             }
         }
     });

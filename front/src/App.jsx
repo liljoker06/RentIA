@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register.jsx";
@@ -8,11 +8,17 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route element={<PrivateRoutes/>}>
-                    <Route path="/" element={<Home/>}/>
+                {/* Page protégée */}
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/home" element={<Home />} />
                 </Route>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
+
+                {/* Routes publiques */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
+                {/* Redirection automatique de / vers /login */}
+                <Route path="/" element={<Navigate to="/login" />} />
             </Routes>
         </Router>
     );

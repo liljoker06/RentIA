@@ -1,4 +1,6 @@
-const User = require('../models/userModel');
+// const User = require('../models/modelUser');
+const sequelize = require('../config/database');
+const { User } = sequelize.models;
 const {hashPassword} = require("../utils/bcrypt");
 
 // Créer un utilisateur

@@ -22,5 +22,5 @@ def process_user_message(message: str, user_name: str = "") -> str:
     # 🔁 Sinon on construit une réponse simple avec les résultats web
     response = f"Je n’ai rien trouvé dans mes données, mais voici ce que j’ai trouvé sur le web 🌍 :\n"
     for i, r in enumerate(web_results):
-        response += f"\n🔹 {r['title']}\n{r['snippet']}\n🔗 {r['href']}\n"
+        response += f"\n {r['title']}\n{r['snippet']}\n🔗 {r['href']}\n"
     return response

@@ -28,17 +28,17 @@ export default function Login() {
     });
 
     return (
-        <div className="flex min-h-screen items-center justify-center dark:bg-gray-900">
-            <div className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-xl">
-                <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">RentalAi</h2>
+        <div className="flex min-h-screen items-center justify-center">
+            <div className="w-full max-w-md bg-white p-8 rounded-xl">
+                <h2 className="text-2xl font-bold text-center text-gray-800">RentalAi</h2>
 
                 <form onSubmit={formik.handleSubmit} className="mt-6 flex flex-col gap-2">
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300">Email</label>
+                        <label className="block text-gray-700">Email</label>
                         <input
                             type="email"
                             name="email"
-                            className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none pr-10"
+                            className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 resize-none pr-10"
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -49,11 +49,11 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300">Mot de passe</label>
+                        <label className="block text-gray-700">Mot de passe</label>
                         <input
                             type="password"
                             name="password"
-                            className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none pr-10"
+                            className="block w-full max-h-48 p-3 text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 resize-none pr-10"
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -71,7 +71,7 @@ export default function Login() {
                     </button>
                 </form>
 
-                <p className="mt-4 text-sm text-center text-gray-600 dark:text-gray-300">
+                <p className="mt-4 text-sm text-center text-gray-600">
                     Pas encore de compte ? <Link to="/register" className="text-blue-500">Inscrivez-vous</Link>
                 </p>
             </div>

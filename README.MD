@@ -1,26 +1,27 @@
 # RentIA
 
-## Présentation du projet
+## 📄 Présentation du projet
 
 RentIA est une application web alimentée par l'intelligence artificielle, conçue pour aider les utilisateurs à trouver des logements correspondant à leurs besoins.
 
-## Stack technologique
+## 📚 Stack technologique
 
 - **Frontend** : React
 - **Backend** : Node.js, Express.js, Sequelize, MySQL
 - **Style** : Tailwind CSS
 - **Outil de build** : Vite
 - **Authentification** : JWT
+- **IA** : Python, FastAPI, PyTorch
 
 ---
 
-## Structure du projet
+## 🗂️ Structure du projet
 
 ```
 RentIA/
 │
 ├── backend/          # Services backend
-│   ├── src/          # Code source du backend
+│   ├── src/
 │   │   ├── controllers/  # Contrôleurs pour gérer les requêtes API
 │   │   ├── models/       # Modèles Sequelize pour la base de données
 │   │   ├── routes/       # Routes de l’API
@@ -31,78 +32,125 @@ RentIA/
 │   └── README.md       # Documentation du backend
 │
 ├── front/            # Application frontend
-│   ├── src/          # Code source de l’application
+│   ├── src/
 │   │   ├── api/      # Fichiers liés à l’API
 │   │   ├── assets/   # Ressources du projet (images, icônes, etc.)
 │   │   ├── components/ # Composants React réutilisables
-│   │   ├── config/   # Fichiers de configuration
 │   │   └── pages/    # Pages de l’application
-│   │       ├── Home.jsx
-│   │       ├── Login.jsx
-│   │       ├── Register.jsx
-│   │       └── App.jsx
 │   ├── index.html    # Point d’entrée HTML
 │   ├── package.json  # Dépendances et configurations du frontend
 │   └── tailwind.config.js  # Configuration Tailwind CSS
 │
-└── ia/               # Dossier pour les fichiers liés à l’intelligence artificielle (à venir)
+└── ia/               # Dossier pour les fichiers liés à l’intelligence artificielle
+    ├── ai/              # Coeur de l'IA conversationnelle et de recommandation de logement
+    │   ├── embeddings/  # Génération d’embeddings et modules de similarité
+    │   ├── responder.py # Gère les réponses générées pour l'utilisateur
+    │   └── retriever.py # Recherche de réponses pertinentes
+    ├── controllers/     # Contrôleurs FastAPI pour les routes d'IA
+    ├── models/          # Définition, entraînement et inférence du modèle
+    ├── routes/          # Routes de l’API FastAPI
+    ├── services/        # Services utilisés par l’IA
+    ├── utils/           # Fonctions utilitaires
+    ├── data/            # Données d'entraînement (datasets)
+    ├── main.py          # Point d’entrée du serveur FastAPI
+    └── requirements.txt  # Dépendances Python
 ```
 
 ---
 
-## Fonctionnalités principales
+## ✨ Fonctionnalités principales
 
 - Authentification des utilisateurs (Frontend et Backend avec JWT)
 - Gestion des propriétés locatives
 - Interface utilisateur responsive
-- Design personnalisé avec Tailwind CSS
+- Recommandation intelligente de logements via embeddings IA
+- Prévision future : Chatbot entraînable et conversationnel en Python/FastAPI
 
 ---
 
-## Prérequis
+## ⚡ Prérequis
 
 ### Frontend
 
-- **Node.js** (version recommandée : `v16.x.x` ou plus)
+- **Node.js** (version recommandée : v16.x.x ou plus)
 - **npm** ou **yarn** (gestionnaire de paquets)
 
 ### Backend
 
-- **Node.js** (version recommandée : `v16.x.x` ou plus)
-- **MySQL** (version recommandée : `8.x.x` ou plus)
+- **Node.js** (version recommandée : v16.x.x ou plus)
+- **MySQL** (version recommandée : 8.x.x ou plus)
+
+### IA (FastAPI / Python)
+
+- **Python** (version recommandée : 3.10 ou plus)
+- **pip** (gestionnaire de paquets Python)
 
 ---
 
-## Installation
+## 🚀 Installation
 
-1. Clonez le dépôt du frontend :
-   ```bash
-   git clone <url-du-repository>
-   ```
-   
-2. Allez dans le dossier backend et installez les dépendances :
-   ```bash
-   npm install
-   ```
+### 1. Cloner le dépôt
+```bash
+git clone <url-du-repository>
+```
 
-3. Configurez les variables d’environnement dans le fichier .env :
-   ```
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_NAME=rent-ia
-   DB_USER=<votre-utilisateur>
-   DB_PASSWORD=<votre-mot-de-passe>
-   JWT_SECRET=<votre-secret-jwt>
-   ```
-   
-4. Démarrez le serveur en mode développement :
-   ```bash
-   npm run dev
-   ```
-   Le serveur backend sera accessible sur http://localhost:3000.
+### 2. Backend
+```bash
+cd backend
+npm install
+```
 
-### Démarrage de la base de données
-Assurez-vous que votre instance MySQL est en cours d’exécution et que la base de données rent-ia est créée. Pour créer la base de données, exécutez la commande suivante dans MySQL :
-   ```
-   CREATE DATABASE rent-ia;
-   ```
+Configurer le fichier `.env` :
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=rent-ia
+DB_USER=<votre-utilisateur>
+DB_PASSWORD=<votre-mot-de-passe>
+JWT_SECRET=<votre-secret-jwt>
+```
+
+Démarrer le serveur :
+```bash
+npm run dev
+```
+Le backend sera accessible sur `http://localhost:5000`
+
+### 3. Frontend
+```bash
+cd front
+npm install
+npm run dev
+```
+Le frontend sera accessible sur `http://localhost:5173`
+
+### 4. IA (FastAPI)
+```bash
+cd ia
+python -m venv venv
+venv\Scripts\activate  # sous Windows
+source venv/bin/activate  # sous Mac/Linux
+
+pip install -r requirements.txt
+```
+
+Lancer le serveur FastAPI :
+```bash
+python main.py
+```
+Le serveur IA sera disponible sur `http://localhost:8000`
+
+---
+
+## 📊 Objectifs futurs
+
+- Ajout d’une IA conversationnelle entraînée sur des dialogues utilisateurs
+- Intégration de l’IA directement dans le frontend via des appels API
+- Recommandation personnalisée en fonction du profil utilisateur
+
+---
+
+## 📍 Auteur
+
+- Projet créé dans le cadre d’un projet éducatif
+

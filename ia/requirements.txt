@@ -1,0 +1,23 @@
+# 📦 Backend & API
+fastapi
+uvicorn
+
+# 📊 Traitement de données
+pandas
+pyarrow
+scikit-learn
+
+# 🔍 Recherche & NLP
+sentence-transformers
+duckduckgo-search
+langdetect
+tokenizer
+tqdm
+
+# 🧠 Deep Learning
+torch
+torch-directml
+
+
+#claire French Dialogue Dataset
+datasets

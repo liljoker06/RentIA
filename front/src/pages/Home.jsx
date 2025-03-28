@@ -41,12 +41,12 @@ function Home() {
   };
 
   const handleConfirmLogout = () => {
-    logout(); // Déconnecter l'utilisateur
-    setIsConfirming(false); // Fermer le modal après confirmation
+    logout(); 
+    setIsConfirming(false); 
   };
 
   const handleCloseModal = () => {
-    setIsConfirming(false); // Fermer le modal sans déconnexion
+    setIsConfirming(false); 
   };
 
   return (

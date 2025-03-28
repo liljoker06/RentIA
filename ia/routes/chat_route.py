@@ -25,7 +25,7 @@ async def chat(request: ChatRequest):
     results = retrieve_similar_rows(message)
 
 
-    if results and results[0]["score"] >= 0.65:
+    if results and results[0]["score"] >= 0.50:
         return {"response": generate_response(results, user_question=message)}
 
     web_results = search_web(message)

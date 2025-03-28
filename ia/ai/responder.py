@@ -1,4 +1,5 @@
 from typing import List, Dict
+import re
 
 def generate_response(results: List[Dict], user_question: str = "") -> str:
     if not results:
@@ -69,10 +70,17 @@ def generate_response(results: List[Dict], user_question: str = "") -> str:
 
 
 def is_greeting(user_input: str) -> bool:
-    greetings = ["salut", "bonjour", "coucou", "ça va", "yo", "hello", "hey"]
-    user_input_lower = user_input.lower()
-    return any(greet in user_input_lower for greet in greetings)
+    # Liste de salutations avec des variantes
+    greetings = [
+        "salut", "bonjour", "coucou", "ça va", "yo", "hello", "hey", 
+        "boujour", "saluttt", "bonjooor", "salu", "bounjour", "heyyy", "hola","salam"
+    ]
+    
+    # Mise en minuscule et suppression des espaces excédentaires
+    user_input_cleaned = user_input.lower().strip()
 
+    # Vérifier si une salutation est présente dans la phrase
+    return any(re.search(r'\b' + greet + r'\b', user_input_cleaned) for greet in greetings)
 
 def get_welcome_message(user_name: str = "") -> str:
     greeting = f"Salut {user_name} 👋" if user_name else "Salut 👋"
@@ -81,9 +89,9 @@ def get_welcome_message(user_name: str = "") -> str:
         f"{greeting} ! Je suis **RenalIA**, ton assistant intelligent 📊💬\n"
         "Je vais bien, merci de demander 😄 Et toi, comment vas-tu ?\n\n"
         "Tu peux me poser une question comme :\n"
-        "🔍 *« Trouve-moi un logement pas cher »*\n"
+        "🔍 *« Trouve-moi un logement pas cher sur Paris »*\n"
         "📍 *« Je cherche quelque chose dans le Marais »*\n"
-        "📅 *« As-tu quelque chose de disponible cette semaine ? »*\n\n"
+        "je peux effectuer des recherches sur internet si je ne trouve pas de résultats dans mes données ! 🌐\n"
         "Je suis là pour t’aider à trouver ce qu’il te faut en quelques secondes ! 🚀"
     )
 

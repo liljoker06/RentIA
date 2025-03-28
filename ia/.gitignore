@@ -1,0 +1,30 @@
+# Environnement virtuel Python (si local au dossier ia)
+venv/
+*.parquet
+*.pkl
+ai/embeddings/
+
+directml-env/
+
+# Dossier de données
+data/
+
+# Fichiers CSV et Parquet
+*.csv
+*.parquet
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Fichiers système et temporaires
+.DS_Store
+.ipynb_checkpoints/
+
+# Fichiers de dataset locaux
+datasets/
+
+
+#fichier d'entrainement 
+trained/

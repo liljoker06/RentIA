@@ -22,5 +22,6 @@ export const login = async (email, password) => {
 };
 
 export const logout = () => {
-    // localStorage.removeItem('jwt');
-};
+    localStorage.removeItem('token'); 
+    window.location.href = '/login'; 
+  };

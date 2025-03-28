@@ -24,16 +24,17 @@ async def chat(request: ChatRequest):
 
     results = retrieve_similar_rows(message)
 
-    # 📉 Si le score est trop faible → basculer sur web
+
     if results and results[0]["score"] >= 0.65:
         return {"response": generate_response(results, user_question=message)}
 
-    # 🌐 Recherche web si pas pertinent ou aucun résultat
     web_results = search_web(message)
     if web_results:
         response = "Je n’ai pas trouvé de réponse claire dans mes données, mais voici ce que j’ai trouvé sur le web 🌐 :\n"
         for result in web_results:
-            response += f"\n🔹 [{result['title']}]({result['href']})"
+            title = result.get("title", "Lien")
+            href = result.get("href", "")
+            response = f"{response}\n🔗 [{title}]({href})"
         return {"response": response}
 
     return {"response": "Désolé, je n’ai trouvé aucune information pertinente 😕."}

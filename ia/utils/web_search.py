@@ -1,12 +1,21 @@
-from duckduckgo_search import DDGS 
+from googlesearch import search
+from typing import List, Dict
 
-def search_web(query: str, max_results: int = 3) -> list:
+def search_web(query: str, count: int = 5) -> List[Dict]:
+    """
+    Effectue une recherche sur le web en utilisant Google.
+
+    Args:
+        query (str): La requête de recherche.
+        count (int): Nombre de résultats à retourner.
+
+    Returns:
+        List[Dict]: Liste des résultats de recherche avec titre et lien.
+    """
     results = []
-    with DDGS() as ddgs:
-        for r in ddgs.text(query, region='fr-fr', safesearch='Moderate', max_results=max_results):
-            results.append({
-                "title": r.get("title"),
-                "href": r.get("href"),
-                "snippet": r.get("body")
-            })
+    for url in search(query, num_results=count):
+        results.append({
+            "title": url,
+            "href": url
+        })
     return results

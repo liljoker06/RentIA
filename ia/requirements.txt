@@ -21,3 +21,6 @@ torch-directml
 
 #claire French Dialogue Dataset
 datasets
+
+
+googlesearch-python

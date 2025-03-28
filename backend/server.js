@@ -7,8 +7,16 @@ dotenv.config();
 
 app.use(express.json());
 
-app.use("/api/users", require("./routes/userRoute"));
-app.use("/api/auth", require("./routes/authRoute"));
+
+const chatRoute = require('./routes/chatRoute');
+const userRoute = require('./routes/userRoute');
+const authRoute = require('./routes/authRoute');
+
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
+
+app.use('/api/chat', chatRoute);
+
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`)

@@ -35,12 +35,12 @@ def retrieve_similar_rows(question: str, top_k: int = 5):
         })
     return results
 
-# Test rapide
-if __name__ == "__main__":
-    q = input("Pose une question à l'IA : ")
-    resultats = retrieve_similar_rows(q)
+# # Test rapide
+# if __name__ == "__main__":
+#     q = input("Pose une question à l'IA : ")
+#     resultats = retrieve_similar_rows(q)
 
-    for r in resultats:
-        print(f"\n🔹 Score: {r['score']}")
-        print(f"📝 {r['text']}")
-        print(f"📊 Données : {r['data']}")
+#     for r in resultats:
+#         print(f"\n🔹 Score: {r['score']}")
+#         print(f"📝 {r['text']}")
+#         print(f"📊 Données : {r['data']}")

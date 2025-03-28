@@ -3,10 +3,12 @@ import { ArrowRight } from "lucide-react";
 import { askRenalIA } from "../api/renalIA";
 import ReactMarkdown from "react-markdown";
 import { logout } from "../api/auth";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 function Home() {
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState([]);
+  const [isConfirming, setIsConfirming] = useState(false); // État pour contrôler l'affichage du modal
   const textareaRef = useRef(null);
 
   const handleInputChange = (e) => {
@@ -34,11 +36,31 @@ function Home() {
     }
   };
 
+  const handleLogout = () => {
+    setIsConfirming(true); // Ouvre la fenêtre de confirmation
+  };
+
+  const handleConfirmLogout = () => {
+    logout(); // Déconnecter l'utilisateur
+    setIsConfirming(false); // Fermer le modal après confirmation
+  };
+
+  const handleCloseModal = () => {
+    setIsConfirming(false); // Fermer le modal sans déconnexion
+  };
+
   return (
     <>
+      {/* Modal de confirmation */}
+      <ConfirmationModal
+        isOpen={isConfirming}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmLogout}
+      />
+
       {/* Bouton logout fixe en haut à gauche */}
       <button
-        onClick={logout}
+        onClick={handleLogout}
         className="fixed top-4 left-4 text-sm text-red-500 border border-red-500 px-3 py-1 rounded-lg hover:bg-red-500 hover:text-white transition z-50"
       >
         Se déconnecter
